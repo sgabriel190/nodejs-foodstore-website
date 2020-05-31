@@ -12,6 +12,42 @@ body {
     margin: auto;
 }
 
+nav {
+    background-color: #ecd8c6;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: auto;
+}
+
+.right_nav_container {
+    margin: 0px 15px;
+    text-align: right;
+    width: 50%;
+    display: inline-block;
+}
+
+.left_nav_container {
+    margin: 0px 15px;
+    text-align: left;
+    width: 45%;
+    display: inline-block;
+}
+
+nav a {
+    font-family: Arial;
+    margin: 0px 50px;
+    text-decoration: none;
+    font-size: 30px;
+    text-shadow: black 0px 0px 2px;
+    color: #f0f0f5;
+}
+
+nav a:hover {
+    color: #ff99bb;
+    transition: 0.3s;
+}
+
 #page_header {
     background-image: url("../images/image-header.jpg");
     padding-top: 100px;
