@@ -9,11 +9,18 @@ const app = express();
 const host = "127.0.0.1";
 const port = 8888;
 
-// Express instance setup
+/**
+ * Express instance setup
+ */
+// Setup the express layout engine
 app.set("view engine", "ejs");
 app.set("views", "./templates");
 app.use(expressLayouts);
+
+// Setup the default static folder
 app.use(express.static("static"));
+
+// Added json parser to the express app
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
