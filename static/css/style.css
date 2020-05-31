@@ -7,11 +7,21 @@
     color: #fff;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
+body {
+    background-color: #e6f9ff;
+    margin: auto;
 }
 
 #page_header {
-    background-image: url("../images/image-header.jpeg");
+    background-image: url("../images/image-header.jpg");
+    padding-top: 100px;
+    padding-bottom: 200px;
+}
+
+#title_header {
+    margin-right: 50px;
+    font-family: "Trebuchet MS", sans-serif;
+    color: yellow;
+    text-shadow: black 0px 0px 2px;
+    font-size: 40px;
 }
