@@ -20,7 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /**
  * Setup the host + port that the node js app should communicate with users
  */
-app.listen(port, host, () => console.log(`Serverul rulează la adresa http://${host}:${port}`));
+app.listen(port, host, () => {
+    console.log(`Serverul rulează la adresa http://${host}:${port}`)
+});
 
 /**
  * The root path of the site
