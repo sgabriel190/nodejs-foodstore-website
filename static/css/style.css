@@ -26,7 +26,7 @@ body {
 ****** Nav menu elements ******
 */
 
-nav {
+.nav_band_style {
     background-color: #ecd8c6;
     width: 100%;
     padding: 15px 0px;
@@ -45,6 +45,14 @@ nav {
     text-align: left;
     width: 45%;
     display: inline-block;
+}
+
+.welcome_message {
+    margin: 0px 100px;
+    text-align: right;
+    font-size: 30px;
+    text-shadow: black 0px 0px 2px;
+    color: #f0f0f5;
 }
 
 nav a {

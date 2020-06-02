@@ -1,28 +1,38 @@
-<div class="auth_input_container">
-    <form class="auth_form" action="/login-check" method="post">
-        <div class="auth_block">
-            <label>Utilizator:</label>
-            <input type="text" placeholder="Introduceti utilizatorul" name="nume_utilizator" required>
+<% if(utilizator==null) {%>
+    <div class="auth_input_container">
+        <form class="auth_form" action="/login-check" method="post">
+            <div class="auth_block">
+                <label>Utilizator:</label>
+                <input type="text" placeholder="Introduceti utilizatorul" name="nume_utilizator" required>
+            </div>
+            <div class="auth_block">
+                <label>Parolă:</label>
+                <input type="password" placeholder="Introduceti parola" name="parola_utilizator" required>
+            </div>
+            <div class="auth_block">
+                <input class="auth_button" type="submit" value="Autentificare">
+            </div>
+            <div class="auth_block">
+                <input class="auth_button" type="submit" value="Am uitat parola">
+            </div>
+        </form>
+        <div>
+            <p>Pentru crearea unui cont nou apasati <a href="/cont-nou" class="auth_create_acc">aici</a>.</p>
         </div>
-        <div class="auth_block">
-            <label>Parolă:</label>
-            <input type="password" placeholder="Introduceti parola" name="parola_utilizator" required>
-        </div>
-        <div class="auth_block">
-            <input class="auth_button" type="submit" value="Autentificare">
-        </div>
-        <div class="auth_block">
-            <input class="auth_button" type="submit" value="Am uitat parola">
-        </div>
-    </form>
-    <div>
-        <p>Pentru crearea unui cont nou apasati <a href="/cont-nou" class="auth_create_acc">aici</a>.</p>
+        <% if(mesajEroare!=null) {%>
+            <div id="auth_error_div">
+                <p>
+                    <%- mesajEroare %>
+                </p>
+            </div>
+            <% } %>
     </div>
-    <% if(mesajEroare!=null) {%>
-        <div id="auth_error_div">
-            <p>
-                <%- mesajEroare %>
-            </p>
+    <% }else{%>
+        <div class="auth_input_container">
+            <div class="auth_block">
+                <form class="auth_form" action="/logout" method="post">
+                    <button class="auth_button" type="submit">Logout</button>
+                </form>
+            </div>
         </div>
         <% } %>
-</div>

@@ -14,7 +14,7 @@
         <a href="/" id="title_header">Magazin alimentar - marketplace</a>
     </header>
 
-    <nav>
+    <nav class="nav_band_style">
         <div class="left_nav_container">
             <a href="">Categorii</a>
             <form action="" id="search_form">
@@ -29,13 +29,20 @@
         </div>
     </nav>
 
-    <main>
-        <%- body -%>
-    </main>
+    <% if(utilizator!=null) {%>
+        <div class="nav_band_style">
+            <p class="welcome_message">Bine aţi venit,
+                <%- utilizator %>!</p>
+        </div>
+        <% } %>
 
-    <footer class="footer">
-        &copy;Programare web - Magazin alimentar - Strilciuc Gabriel
-    </footer>
+            <main>
+                <%- body -%>
+            </main>
+
+            <footer class="footer">
+                &copy;Programare web - Magazin alimentar - Strilciuc Gabriel
+            </footer>
 
 </body>
 
