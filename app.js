@@ -41,6 +41,11 @@ app.use(sessionModule({
 // Add cookies to the app
 app.use(cookieParser("abc"));
 
+
+/**
+ *********** Web site functionalities ***********
+ */
+
 /**
  * Setup the host + port that the node js app should communicate with users
  */
@@ -57,11 +62,24 @@ app.get("/", (req, res) => {
 
 // Cont resource HTTP methods
 app.get("/cont", (req, res) => {
-    res.render("cont");
+
+    res.render("cont", {
+        mesajEroare: req.cookies["mesajEroare"]
+    });
 });
 
 app.post("/login-check", (req, res) => {
+    let raspuns_json = req.body;
 
+    if (raspuns_json.nume_utilizator === "admin" && raspuns_json.parola_utilizator === "admin") {
+        res.cookie("utilizator", raspuns_json.nume_utilizator);
+        res.cookie("parola", raspuns_json.parola_utilizator);
+        res.clearCookie("mesajEroare");
+        res.redirect("/");
+    } else {
+        res.cookie("mesajEroare", "Log in: datele utilizatorului sunt incorecte.");
+        res.redirect("/cont");
+    }
 });
 
 // Lista resource HTTP methods

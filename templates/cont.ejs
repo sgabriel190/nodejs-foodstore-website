@@ -18,4 +18,11 @@
     <div>
         <p>Pentru crearea unui cont nou apasati <a href="/cont-nou" class="auth_create_acc">aici</a>.</p>
     </div>
+    <% if(mesajEroare!=null) {%>
+        <div id="auth_error_div">
+            <p>
+                <%- mesajEroare %>
+            </p>
+        </div>
+        <% } %>
 </div>
