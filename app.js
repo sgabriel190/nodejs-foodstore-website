@@ -44,12 +44,24 @@ app.use(sessionModule({
 app.use(cookieParser("abc"));
 
 // Set up the database
-mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
+mongoClient.connect(urlDB + "marketplace", { useUnifiedTopology: true }, (err, db) => {
     if (err) {
         throw err;
     }
     console.log("[DB-info]:Baza de date a fost creata.");
-    db.close();
+});
+
+mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
+    if (err) {
+        throw err;
+    }
+    var dbo = db.db("marketplace");
+    dbo.createCollection("users", (err, res) => {
+        if (err) {
+            throw err;
+        }
+        console.log("[DB-info]:Tabela users a fost creata.");
+    });
 });
 
 
