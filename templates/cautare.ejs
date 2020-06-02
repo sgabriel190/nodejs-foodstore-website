@@ -1,0 +1,26 @@
+<% if(rezultat_cautare != null) {%>
+    <div class="produse">
+        <h1>Rezultate cautare</h1>
+        <% rezultat_cautare.forEach(element => { %>
+            <div id="produs">
+                <p id="nume_produs">Nume produs:
+                    <%- element.product_name %>
+                </p>
+                <p id="tip_produs">Tip aliment:
+                    <%- element.type %>
+                </p>
+                <p id="pret_produs">
+                    Preţ:
+                    <%- element.price %>/
+                        <%- element.measure %>
+                </p>
+                <input id="input_produs" type="hidden" value="<%- element %>">
+                <button id="adaugare_cos_buton" class="auth_button" onclick="addToBasket()">Adăugare în coş</button>
+                <button id="adaugare_lista_buton" class="auth_button" onclick="addToList()">Adăugare în listă</button>
+            </div>
+            <% }); %>
+                <% if(rezultat_cautare.length == 0) {%>
+                    <h1>Nici un rezultat gasit.</h1>
+                    <% } %>
+    </div>
+    <% } %>

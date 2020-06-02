@@ -127,7 +127,35 @@ app.get("/", (req, res) => {
 
 // Search resource HTTP methods
 app.post("/search-function", (req, res) => {
-    let raspuns_json = req.body;
+    let raspuns = req.body.search;
+    let promise = new Promise((resolve, reject) => {
+        mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
+            if (err) {
+                reject(err);
+            }
+            var dbo = db.db("marketplace");
+            dbo.collection("products")
+                .find({ product_name: raspuns })
+                .toArray((err, res) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve(res);
+                });
+        });
+    });
+
+    promise
+        .then((result) => {
+            // Logging message
+            console.log("[Server-info]:Randarea paginii index.");
+            res.render("cautare", {
+                nume: req.cookies["nume"],
+                rezultat_cautare: result
+            });
+        })
+        .catch(err => console.log(err));
+
 });
 
 // Cont resource HTTP methods
