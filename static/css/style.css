@@ -1,3 +1,7 @@
+/*
+****** Footer elements ******
+*/
+
 .footer {
     flex-shrink: 0;
     height: 50px;
@@ -7,10 +11,20 @@
     color: #fff;
 }
 
+
+/*
+****** Main body elements ******
+*/
+
 body {
     background-color: #e6f9ff;
     margin: auto;
 }
+
+
+/*
+****** Nav menu elements ******
+*/
 
 nav {
     background-color: #ecd8c6;
@@ -56,6 +70,11 @@ nav a:hover {
     transition: 0.3s;
 }
 
+
+/*
+****** Header elements ******
+*/
+
 #page_header {
     background-image: url("../images/image-header.jpg");
     padding-top: 100px;
@@ -72,6 +91,11 @@ nav a:hover {
     font-size: 40px;
     margin: 0px 100px;
 }
+
+
+/*
+****** Search elements ******
+*/
 
 #search_form {
     display: inline;
@@ -115,4 +139,22 @@ nav a:hover {
 
 .auth_block {
     margin: 15px 0px;
+}
+
+.auth_button {
+    background-color: #309900;
+    border: none;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.auth_create_acc {
+    text-decoration: none;
+    color: sandybrown;
 }
