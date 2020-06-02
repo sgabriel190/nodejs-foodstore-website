@@ -1,6 +1,8 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const sessionModule = require("express-session");
+const cookieParser = require("cookie-parser");
 
 // Create an express instance
 const app = express();
@@ -24,6 +26,21 @@ app.use(express.static("static"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Add session express to the app
+app.use(sessionModule({
+    name: "pw",
+    secret: "abc",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 2,
+        sameSite: true
+    }
+}));
+
+// Add cookies to the app
+app.use(cookieParser("abc"));
+
 /**
  * Setup the host + port that the node js app should communicate with users
  */
@@ -34,6 +51,16 @@ app.listen(port, host, () => {
 /**
  * The root path of the site
  */
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
     res.render("index");
+});
+
+// Cont resource HTTP methods
+app.get("/cont", (req, res) => {
+    res.render("cont");
+});
+
+// Lista resource HTTP methods
+app.get("/lista", (req, res) => {
+    res.render("lista");
 });
