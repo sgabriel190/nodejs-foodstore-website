@@ -101,6 +101,11 @@ app.get("/", (req, res) => {
     });
 });
 
+// Search resource HTTP methods
+app.post("/search-function", (req, res) => {
+
+});
+
 // Cont resource HTTP methods
 app.get("/cont", (req, res) => {
     // Logging message
@@ -113,52 +118,12 @@ app.get("/cont", (req, res) => {
     });
 });
 
-app.get("/cont-nou", (req, res) => {
-
-    // Logging message
-    console.log("[Server-info]:Randarea paginii cont-nou.");
-
-    res.render("cont-nou", {
-        utilizator: req.cookies["utilizator"],
-        nume: req.cookies["nume"]
-    });
-});
-
 app.post("/logout", (req, res) => {
     res.clearCookie("utilizator");
     res.clearCookie("nume");
 
     // Logging message
     console.log("[Server-info]:Log out efectual. Redirectionare catre cont.");
-
-    res.redirect("/cont");
-});
-
-app.post("/new-acc-check", (req, res) => {
-    let raspuns_json = req.body;
-
-    mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
-        if (err) {
-            throw err;
-        }
-        var dbo = db.db("marketplace");
-        var objToBeInserted = {
-            name: raspuns_json.nume,
-            user: raspuns_json.username,
-            password: raspuns_json.parola,
-            email: raspuns_json.email
-        };
-        dbo.collection("users").insertOne(objToBeInserted, (err, res) => {
-            if (err) {
-                throw err;
-            }
-            console.log("[DB-info]:One record inserted into users table.");
-        });
-
-    });
-
-    // Logging message
-    console.log("[Server-info]:Crearea contului cu succes. Redirectionare catre cont.");
 
     res.redirect("/cont");
 });
@@ -208,7 +173,53 @@ app.post("/login-check", (req, res) => {
 
 // Parola uitata resurse HTTP methods
 app.get("/parola-uitata", (req, res) => {
+    // Logging message
+    console.log("[Server-info]:Randarea paginii parola-uitata.");
 
+    res.render("parola-uitata", {
+        nume: req.cookies["nume"]
+    });
+});
+
+// Cont nou resource HTTP methods
+app.get("/cont-nou", (req, res) => {
+
+    // Logging message
+    console.log("[Server-info]:Randarea paginii cont-nou.");
+
+    res.render("cont-nou", {
+        utilizator: req.cookies["utilizator"],
+        nume: req.cookies["nume"]
+    });
+});
+
+app.post("/new-acc-check", (req, res) => {
+    let raspuns_json = req.body;
+
+    mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
+        if (err) {
+            throw err;
+        }
+        var dbo = db.db("marketplace");
+        var objToBeInserted = {
+            name: raspuns_json.nume,
+            user: raspuns_json.username,
+            password: raspuns_json.parola,
+            email: raspuns_json.email
+        };
+        dbo.collection("users").insertOne(objToBeInserted, (err, res) => {
+            if (err) {
+                throw err;
+            }
+            console.log("[DB-info]:One record inserted into users table.");
+        });
+
+    });
+
+    // Logging message
+    console.log("[Server-info]:Crearea contului cu succes. Redirectionare catre cont.");
+
+    res.redirect("/cont");
 });
 
 // Lista resource HTTP methods
