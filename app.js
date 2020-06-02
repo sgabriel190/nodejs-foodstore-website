@@ -142,6 +142,8 @@ app.get("/cont", (req, res) => {
 app.post("/logout", (req, res) => {
     res.clearCookie("utilizator");
     res.clearCookie("nume");
+    res.clearCookie("lista");
+    res.clearCookie("cos");
 
     // Logging message
     console.log("[Server-info]:Log out efectual. Redirectionare catre cont.");
@@ -174,6 +176,8 @@ app.post("/login-check", (req, res) => {
                 raspuns_json.parola_utilizator === result.password) {
                 res.cookie("utilizator", result.user);
                 res.cookie("nume", result.name);
+                res.cookie("lista", []);
+                res.cookie("cos", []);
                 res.clearCookie("mesajEroare");
 
                 // Logging message
