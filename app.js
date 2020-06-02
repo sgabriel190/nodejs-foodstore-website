@@ -103,7 +103,7 @@ app.get("/", (req, res) => {
 
 // Search resource HTTP methods
 app.post("/search-function", (req, res) => {
-
+    let raspuns_json = req.body;
 });
 
 // Cont resource HTTP methods
@@ -173,24 +173,37 @@ app.post("/login-check", (req, res) => {
 
 // Parola uitata resurse HTTP methods
 app.get("/parola-uitata", (req, res) => {
-    // Logging message
-    console.log("[Server-info]:Randarea paginii parola-uitata.");
 
-    res.render("parola-uitata", {
-        nume: req.cookies["nume"]
-    });
+
+    if (req.cookies["utilizator"] == null) {
+        // Logging message
+        console.log("[Server-info]:Randarea paginii parola-uitata.");
+        res.render("parola-uitata", {
+            nume: req.cookies["nume"]
+        });
+    } else {
+        // Logging message
+        console.log("[Server-info]:Accesarea paginii parola-uitata desi utilizatorul este logat. Redirectionare spre cont.");
+        res.redirect("/cont");
+    }
 });
 
 // Cont nou resource HTTP methods
 app.get("/cont-nou", (req, res) => {
 
-    // Logging message
-    console.log("[Server-info]:Randarea paginii cont-nou.");
+    if (req.cookies["utilizator"] == null) {
+        // Logging message
+        console.log("[Server-info]:Randarea paginii cont-nou.");
 
-    res.render("cont-nou", {
-        utilizator: req.cookies["utilizator"],
-        nume: req.cookies["nume"]
-    });
+        res.render("cont-nou", {
+            utilizator: req.cookies["utilizator"],
+            nume: req.cookies["nume"]
+        });
+    } else {
+        // Logging message
+        console.log("[Server-info]:Accesarea paginii cont-nou desi utilizatorul este logat. Redirectionare spre cont.");
+        res.redirect("/cont");
+    }
 });
 
 app.post("/new-acc-check", (req, res) => {
