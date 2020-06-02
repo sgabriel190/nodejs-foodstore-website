@@ -15,8 +15,7 @@ body {
 nav {
     background-color: #ecd8c6;
     width: 100%;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 15px 0px;
     margin: auto;
 }
 
@@ -43,6 +42,15 @@ nav a {
     color: #f0f0f5;
 }
 
+
+/* Remove a tag border on click. */
+
+a:active,
+a:focus {
+    outline: none;
+    border: none;
+}
+
 nav a:hover {
     color: #ff99bb;
     transition: 0.3s;
@@ -52,12 +60,59 @@ nav a:hover {
     background-image: url("../images/image-header.jpg");
     padding-top: 100px;
     padding-bottom: 200px;
+    text-align: right;
 }
 
 #title_header {
+    text-decoration: none;
     margin-right: 50px;
     font-family: "Trebuchet MS", sans-serif;
-    color: yellow;
+    color: white;
     text-shadow: black 0px 0px 2px;
     font-size: 40px;
+    margin: 0px 100px;
+}
+
+#search_form {
+    display: inline;
+    margin: 0px;
+    padding: 0px;
+}
+
+#search_input {
+    padding: 10px;
+    font-size: 17px;
+    border: none;
+    border-radius: 5px;
+}
+
+#search_button {
+    padding: 10px 15px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+
+/*
+****** Authentification elements ******
+*/
+
+.auth_input_container {
+    padding: 3% 0px;
+    margin: 100px 30%;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+    border: 2px solid #003d4d;
+    background-color: #006680;
+}
+
+.auth_form {
+    display: inline;
+}
+
+.auth_block {
+    margin: 15px 0px;
 }

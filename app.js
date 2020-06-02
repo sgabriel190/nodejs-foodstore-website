@@ -45,7 +45,7 @@ app.use(cookieParser("abc"));
  * Setup the host + port that the node js app should communicate with users
  */
 app.listen(port, host, () => {
-    console.log(`Serverul rulează la adresa http://${host}:${port}`)
+    console.log(`[Server-info]Serverul rulează la adresa http://${host}:${port}`)
 });
 
 /**
@@ -60,7 +60,16 @@ app.get("/cont", (req, res) => {
     res.render("cont");
 });
 
+app.post("/login-check", (req, res) => {
+
+});
+
 // Lista resource HTTP methods
 app.get("/lista", (req, res) => {
     res.render("lista");
+});
+
+// Cos-cumparaturi resource HTTP methods
+app.get("/cos-cumparaturi", (req, res) => {
+    res.render("cos-cumparaturi");
 });
