@@ -279,3 +279,15 @@ app.get("/cos-cumparaturi", (req, res) => {
         nume: req.cookies["nume"]
     });
 });
+
+// Ajax resources HTTP methods
+app.post("/add-to-list", (req, res) => {
+    let raspuns = req.body.elem;
+    res.cookie["lista"].add(raspuns);
+    console.log(raspuns);
+});
+
+app.post("/add-to-basket", (req, res) => {
+    let raspuns = req.body.elem;
+    res.cookie["cos"].add(raspuns);
+});

@@ -14,8 +14,9 @@
                     <%- element.price %>/
                         <%- element.measure %>
                 </p>
-                <button id="adaugare_cos_buton" class="auth_button" type="submit">Adăugare în coş</button>
-                <button id="adaugare_lista_buton" class="auth_button" type="submit">Adăugare în listă</button>
+                <input id="input_produs" type="hidden" value="<%- element %>">
+                <button id="adaugare_cos_buton" class="auth_button" onclick="addToBasket()">Adăugare în coş</button>
+                <button id="adaugare_lista_buton" class="auth_button" onclick="addToList()">Adăugare în listă</button>
             </div>
             <% }); %>
                 <% } %>
