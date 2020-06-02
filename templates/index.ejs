@@ -1,1 +1,22 @@
-<h1>Produse</h1>
+<div class="produse">
+    <h1>Produse</h1>
+    <% if(produse != null) {%>
+        <% produse.forEach(element => { %>
+            <div id="produs">
+                <p id="nume_produs">Nume produs:
+                    <%- element.product_name %>
+                </p>
+                <p id="tip_produs">Tip aliment:
+                    <%- element.type %>
+                </p>
+                <p id="pret_produs">
+                    Preţ:
+                    <%- element.price %>/
+                        <%- element.measure %>
+                </p>
+                <button class="auth_button" type="submit">Adăugare în coş</button>
+                <button class="auth_button" type="submit">Adăugare în listă</button>
+            </div>
+            <% }); %>
+                <% } %>
+</div>

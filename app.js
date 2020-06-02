@@ -93,12 +93,33 @@ app.listen(port, host, () => {
  * The root path of the site
  */
 app.get("/", (req, res) => {
-    // Logging message
-    console.log("[Server-info]:Randarea paginii index.");
-
-    res.render("index", {
-        nume: req.cookies["nume"]
+    let promise = new Promise((resolve, reject) => {
+        mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
+            if (err) {
+                reject(err);
+            }
+            var dbo = db.db("marketplace");
+            dbo.collection("products")
+                .find("*")
+                .toArray((err, res) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve(res);
+                });
+        });
     });
+
+    promise
+        .then((result) => {
+            // Logging message
+            console.log("[Server-info]:Randarea paginii index.");
+            res.render("index", {
+                nume: req.cookies["nume"],
+                produse: result
+            });
+        })
+        .catch(err => console.log(err));
 });
 
 // Search resource HTTP methods
