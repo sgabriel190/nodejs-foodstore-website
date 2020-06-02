@@ -64,6 +64,19 @@ mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
     });
 });
 
+mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
+    if (err) {
+        throw err;
+    }
+    var dbo = db.db("marketplace");
+    dbo.createCollection("products", (err, res) => {
+        if (err) {
+            throw err;
+        }
+        console.log("[DB-info]:Tabela products a fost creata.");
+    });
+});
+
 
 /**
  *********** Web site functionalities ***********
@@ -82,8 +95,9 @@ app.listen(port, host, () => {
 app.get("/", (req, res) => {
     // Logging message
     console.log("[Server-info]:Randarea paginii index.");
+
     res.render("index", {
-        utilizator: req.cookies["utilizator"]
+        nume: req.cookies["nume"]
     });
 });
 
@@ -91,15 +105,28 @@ app.get("/", (req, res) => {
 app.get("/cont", (req, res) => {
     // Logging message
     console.log("[Server-info]:Randarea paginii cont.");
+
     res.render("cont", {
         mesajEroare: req.cookies["mesajEroare"],
+        nume: req.cookies["nume"],
         utilizator: req.cookies["utilizator"]
+    });
+});
+
+app.get("/cont-nou", (req, res) => {
+
+    // Logging message
+    console.log("[Server-info]:Randarea paginii cont-nou.");
+
+    res.render("cont-nou", {
+        utilizator: req.cookies["utilizator"],
+        nume: req.cookies["nume"]
     });
 });
 
 app.post("/logout", (req, res) => {
     res.clearCookie("utilizator");
-    res.clearCookie("parola");
+    res.clearCookie("nume");
 
     // Logging message
     console.log("[Server-info]:Log out efectual. Redirectionare catre cont.");
@@ -107,33 +134,90 @@ app.post("/logout", (req, res) => {
     res.redirect("/cont");
 });
 
-app.post("/login-check", (req, res) => {
+app.post("/new-acc-check", (req, res) => {
     let raspuns_json = req.body;
 
-    if (raspuns_json.nume_utilizator === "admin" && raspuns_json.parola_utilizator === "admin") {
-        res.cookie("utilizator", raspuns_json.nume_utilizator);
-        res.clearCookie("mesajEroare");
+    mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
+        if (err) {
+            throw err;
+        }
+        var dbo = db.db("marketplace");
+        var objToBeInserted = {
+            name: raspuns_json.nume,
+            user: raspuns_json.username,
+            password: raspuns_json.parola,
+            email: raspuns_json.email
+        };
+        dbo.collection("users").insertOne(objToBeInserted, (err, res) => {
+            if (err) {
+                throw err;
+            }
+            console.log("[DB-info]:One record inserted into users table.");
+        });
 
-        // Logging message
-        console.log("[Server-info]:Log in cu succes. Redirectionare catre index.");
+    });
 
-        res.redirect("/");
-    } else {
-        res.cookie("mesajEroare", "Log in: datele utilizatorului sunt incorecte.");
+    // Logging message
+    console.log("[Server-info]:Crearea contului cu succes. Redirectionare catre cont.");
 
-        // Logging message
-        console.log("[Server-info]:Log in esuat. Redirectionare catre cont.");
+    res.redirect("/cont");
+});
 
-        res.redirect("/cont");
-    }
+app.post("/login-check", (req, res) => {
+    let raspuns_json = req.body;
+    let promise = new Promise((resolve, reject) => {
+        mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
+            if (err) {
+                reject(err);
+            }
+            var dbo = db.db("marketplace");
+            dbo.collection("users")
+                .find({ user: raspuns_json.nume_utilizator })
+                .toArray((err, res) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve(res[0]);
+                });
+        });
+    });
+
+    promise
+        .then((result) => {
+            if (raspuns_json.nume_utilizator === result.user &&
+                raspuns_json.parola_utilizator === result.password) {
+                res.cookie("utilizator", result.user);
+                res.cookie("nume", result.name);
+                res.clearCookie("mesajEroare");
+
+                // Logging message
+                console.log("[Server-info]:Log in cu succes. Redirectionare catre index.");
+
+                res.redirect("/");
+            } else {
+                res.cookie("mesajEroare", "Log in: datele utilizatorului sunt incorecte.");
+
+                // Logging message
+                console.log("[Server-info]:Log in esuat. Redirectionare catre cont.");
+
+                res.redirect("/cont");
+            }
+        })
+        .catch(err => console.log(err));
+});
+
+// Parola uitata resurse HTTP methods
+app.get("/parola-uitata", (req, res) => {
+
 });
 
 // Lista resource HTTP methods
 app.get("/lista", (req, res) => {
     // Logging message
     console.log("[Server-info]:Randarea paginii lista.");
+
     res.render("lista", {
-        utilizator: req.cookies["utilizator"]
+        nume: req.cookies["nume"]
     });
 });
 
@@ -141,7 +225,8 @@ app.get("/lista", (req, res) => {
 app.get("/cos-cumparaturi", (req, res) => {
     // Logging message
     console.log("[Server-info]:Randarea paginii cos-cumparaturi.");
+
     res.render("cos-cumparaturi", {
-        utilizator: req.cookies["utilizator"]
+        nume: req.cookies["nume"]
     });
 });

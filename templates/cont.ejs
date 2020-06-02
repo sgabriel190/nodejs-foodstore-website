@@ -12,10 +12,10 @@
             <div class="auth_block">
                 <input class="auth_button" type="submit" value="Autentificare">
             </div>
-            <div class="auth_block">
-                <input class="auth_button" type="submit" value="Am uitat parola">
-            </div>
         </form>
+        <div class="auth_block">
+            <a class="auth_button" href="/parola-uitata">Am uitat parola</a>
+        </div>
         <div>
             <p>Pentru crearea unui cont nou apasati <a href="/cont-nou" class="auth_create_acc">aici</a>.</p>
         </div>
@@ -30,6 +30,8 @@
     <% }else{%>
         <div class="auth_input_container">
             <div class="auth_block">
+                <p>Logat ca
+                    <%- utilizator %>.</p>
                 <form class="auth_form" action="/logout" method="post">
                     <button class="auth_button" type="submit">Logout</button>
                 </form>

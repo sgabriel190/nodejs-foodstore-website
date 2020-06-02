@@ -1,0 +1,25 @@
+<% if(utilizator==null) {%>
+    <div class="auth_input_container">
+        <form class="auth_form" action="/new-acc-check" method="post">
+            <div class="auth_block">
+                <label>Nume:</label>
+                <input type="text" placeholder="Introduceţi numele complet" name="nume" required>
+            </div>
+            <div class="auth_block">
+                <label>Utilizator:</label>
+                <input type="text" placeholder="Introduceţi username-ul" name="username" required>
+            </div>
+            <div class="auth_block">
+                <label>Parolă:</label>
+                <input type="password" placeholder="Introduceţi parola" name="parola" required>
+            </div>
+            <div class="auth_block">
+                <label>Email:</label>
+                <input type="text" placeholder="Introduceţi email" name="email" required>
+            </div>
+            <div class="auth_block">
+                <button class="auth_button" type="submit">Înregistrare</button>
+            </div>
+        </form>
+    </div>
+    <% } %>
