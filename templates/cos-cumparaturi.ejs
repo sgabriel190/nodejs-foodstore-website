@@ -1,6 +1,12 @@
+<div id="div_empty_button">
+    <form action="/empty-basket" class="auth_form " method="post">
+        <button id="sterge_cos" class="auth_button">Şterge conţinut coş</button>
+    </form>
+</div>
 <div class="produse">
     <h1>Coş de cumparaturi</h1>
-    <% if(cos.length != 0) {%>
+    <% var total = 0;
+    if(cos.length != 0) {%>
         <% cos.forEach(element => { %>
             <div id="produs">
                 <p id="nume_produs">Nume produs:
@@ -15,6 +21,10 @@
                         <%- element["measure"] %>
                 </p>
             </div>
-            <% }); %>
-                <% } %>
+            <% total += element["price"] %>
+                <% }); %>
+                    <h1>Total coş:
+                        <%- total %> lei.
+                    </h1>
+                    <% } %>
 </div>

@@ -374,3 +374,13 @@ app.post("/add-to-basket", (req, res) => {
         })
         .catch(err => console.log(err));
 });
+
+app.post("/empty-basket", (req, res) => {
+    res.cookie("cos", JSON.stringify([]));
+    res.redirect("/cos-cumparaturi");
+});
+
+app.post("/empty-list", (req, res) => {
+    res.cookie("lista", JSON.stringify([]));
+    res.redirect("/lista");
+});

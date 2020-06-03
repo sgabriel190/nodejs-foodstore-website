@@ -22,6 +22,11 @@ body {
     margin: auto;
 }
 
+#div_empty_button {
+    text-align: center;
+    margin: 20px 0px;
+}
+
 
 /*
 ****** Nav menu elements ******
