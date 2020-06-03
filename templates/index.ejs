@@ -16,11 +16,11 @@
                 </p>
                 <form action="add-to-basket" class="auth_form" method="post">
                     <input type="hidden" value="<%- element.product_name %>" name="obiect">
-                    <button id="adaugare_cos_buton" class="auth_button">Adăugare în coş</button>
+                    <button id="adaugare_produs_buton" class="auth_button" onmouseover="hoverEfect()">Adăugare în coş</button>
                 </form>
                 <form action="/add-to-list" class="auth_form " method="post">
                     <input type="hidden" value="<%- element.product_name %>" name="obiect">
-                    <button id="adaugare_lista_buton" class="auth_button">Adăugare în listă</button>
+                    <button id="adaugare_produs_buton" class="auth_button" onmouseover="hoverEfect()">Adăugare în listă</button>
                 </form>
             </div>
             <% }); %>
