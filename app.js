@@ -297,7 +297,8 @@ app.get("/lista", (req, res) => {
     console.log("[Server-info]:Randarea paginii lista.");
 
     res.render("lista", {
-        nume: req.cookies["nume"]
+        nume: req.cookies["nume"],
+        lista: req.cookies.lista
     });
 });
 
@@ -305,20 +306,69 @@ app.get("/lista", (req, res) => {
 app.get("/cos-cumparaturi", (req, res) => {
     // Logging message
     console.log("[Server-info]:Randarea paginii cos-cumparaturi.");
-
+    console.log(req.cookies.cos);
     res.render("cos-cumparaturi", {
-        nume: req.cookies["nume"]
+        nume: req.cookies["nume"],
+        cos: req.cookies.cos
     });
 });
 
 // Ajax resources HTTP methods
 app.post("/add-to-list", (req, res) => {
-    let raspuns = req.body.elem;
-    res.cookie["lista"].add(raspuns);
-    console.log(raspuns);
+    let raspuns = req.body.search;
+    let promise = new Promise((resolve, reject) => {
+        mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
+            if (err) {
+                reject(err);
+            }
+            var dbo = db.db("marketplace");
+            dbo.collection("products")
+                .find({ product_name: raspuns })
+                .toArray((err, res) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve(res);
+                });
+        });
+    });
+
+    promise
+        .then((result) => {
+            // Logging message
+            console.log("[Server-info]:Randarea paginii index.");
+            req.cookies.lista.push(result);
+            res.redirect("/");
+        })
+        .catch(err => console.log(err));
 });
 
 app.post("/add-to-basket", (req, res) => {
-    let raspuns = req.body.elem;
-    res.cookie["cos"].add(raspuns);
+    let raspuns = req.body.search;
+    let promise = new Promise((resolve, reject) => {
+        mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
+            if (err) {
+                reject(err);
+            }
+            var dbo = db.db("marketplace");
+            dbo.collection("products")
+                .find({ product_name: raspuns })
+                .toArray((err, res) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve(res);
+                });
+        });
+    });
+
+    promise
+        .then((result) => {
+            // Logging message
+            console.log("[Server-info]:Randarea paginii index.");
+            req.cookies.cos.push(result);
+            res.cookie("cos", req.cookies.cos);
+            res.redirect("/");
+        })
+        .catch(err => console.log(err));
 });

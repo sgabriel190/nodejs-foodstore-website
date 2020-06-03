@@ -1,0 +1,17 @@
+<% if(cos.length != 0) {%>
+    <% cos.forEach(element => { %>
+        <div id="produs">
+            <p id="nume_produs">Nume produs:
+                <%- element.product_name %>
+            </p>
+            <p id="tip_produs">Tip aliment:
+                <%- element.type %>
+            </p>
+            <p id="pret_produs">
+                Preţ:
+                <%- element.price %>/
+                    <%- element.measure %>
+            </p>
+        </div>
+        <% }); %>
+            <% } %>

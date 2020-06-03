@@ -1,0 +1,21 @@
+<% if(lista.length != 0) {%>
+    <% lista.forEach(element => { %>
+        <div id="produs">
+            <p id="nume_produs">Nume produs:
+                <%- element.product_name %>
+            </p>
+            <p id="tip_produs">Tip aliment:
+                <%- element.type %>
+            </p>
+            <p id="pret_produs">
+                Preţ:
+                <%- element.price %>/
+                    <%- element.measure %>
+            </p>
+            <form action="add-to-basket" class="auth_form" method="post">
+                <input type="hidden" value="<%- element.product_name%>" name="obiect">
+                <button id="adaugare_cos_buton" class="auth_button">Adăugare în coş</button>
+            </form>
+        </div>
+        <% }); %>
+            <% } %>
