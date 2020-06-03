@@ -389,10 +389,14 @@ app.post("/add-to-basket", (req, res) => {
 
 app.post("/empty-basket", (req, res) => {
     res.cookie("cos", JSON.stringify([]));
+    // Logging message
+    console.log("[Server-info]:Stergerea cookieului pentru cos. Redirectionare catre cos-cumparaturi.");
     res.redirect("/cos-cumparaturi");
 });
 
 app.post("/empty-list", (req, res) => {
     res.cookie("lista", JSON.stringify([]));
+    // Logging message
+    console.log("[Server-info]:Stergerea cookieului pentru lista. Redirectionare catre lista.");
     res.redirect("/lista");
 });
