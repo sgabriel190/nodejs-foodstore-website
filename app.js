@@ -306,7 +306,6 @@ app.get("/lista", (req, res) => {
 app.get("/cos-cumparaturi", (req, res) => {
     // Logging message
     console.log("[Server-info]:Randarea paginii cos-cumparaturi.");
-    console.log(req.cookies.cos);
     res.render("cos-cumparaturi", {
         nume: req.cookies["nume"],
         cos: JSON.parse(req.cookies.cos)
@@ -315,7 +314,7 @@ app.get("/cos-cumparaturi", (req, res) => {
 
 // Ajax resources HTTP methods
 app.post("/add-to-list", (req, res) => {
-    let raspuns = req.body.search;
+    let raspuns = req.body.obiect;
     let promise = new Promise((resolve, reject) => {
         mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
             if (err) {
@@ -338,7 +337,7 @@ app.post("/add-to-list", (req, res) => {
             // Logging message
             console.log("[Server-info]:Randarea paginii index.");
             let json_cookie = JSON.parse(req.cookies.lista);
-            json_cookie.push(result);
+            json_cookie.push(result[0]);
             res.cookie("lista", JSON.stringify(json_cookie));
             res.redirect("/");
         })
@@ -346,7 +345,7 @@ app.post("/add-to-list", (req, res) => {
 });
 
 app.post("/add-to-basket", (req, res) => {
-    let raspuns = req.body.search;
+    let raspuns = req.body.obiect;
     let promise = new Promise((resolve, reject) => {
         mongoClient.connect(urlDB, { useUnifiedTopology: true }, (err, db) => {
             if (err) {
@@ -369,7 +368,7 @@ app.post("/add-to-basket", (req, res) => {
             // Logging message
             console.log("[Server-info]:Randarea paginii index.");
             let json_cookie = JSON.parse(req.cookies.cos);
-            json_cookie.push(result);
+            json_cookie.push(result[0]);
             res.cookie("cos", JSON.stringify(json_cookie));
             res.redirect("/");
         })
