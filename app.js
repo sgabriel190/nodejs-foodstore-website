@@ -347,7 +347,7 @@ app.post("/add-to-list", (req, res) => {
     promise
         .then((result) => {
             // Logging message
-            console.log("[Server-info]:Randarea paginii index.");
+            console.log("[Server-info]:Adaugarea produsului in lista. Redirectionare catre index.");
             let json_cookie = JSON.parse(req.cookies.lista);
             json_cookie.push(result[0]);
             res.cookie("lista", JSON.stringify(json_cookie));
@@ -378,7 +378,7 @@ app.post("/add-to-basket", (req, res) => {
     promise
         .then((result) => {
             // Logging message
-            console.log("[Server-info]:Randarea paginii index.");
+            console.log("[Server-info]:Adaugarea produsului in cos. Redirectionare catre index.");
             let json_cookie = JSON.parse(req.cookies.cos);
             json_cookie.push(result[0]);
             res.cookie("cos", JSON.stringify(json_cookie));
