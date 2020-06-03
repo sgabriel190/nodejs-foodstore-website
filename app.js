@@ -295,10 +295,16 @@ app.post("/new-acc-check", (req, res) => {
 app.get("/lista", (req, res) => {
     // Logging message
     console.log("[Server-info]:Randarea paginii lista.");
+    var lista_array;
+    if (req.cookies.lista != null) {
+        lista_array = JSON.parse(req.cookies.lista)
+    } else {
+        lista_array = [];
+    }
 
     res.render("lista", {
         nume: req.cookies["nume"],
-        lista: JSON.parse(req.cookies.lista)
+        lista: lista_array
     });
 });
 
@@ -306,9 +312,15 @@ app.get("/lista", (req, res) => {
 app.get("/cos-cumparaturi", (req, res) => {
     // Logging message
     console.log("[Server-info]:Randarea paginii cos-cumparaturi.");
+    var cos_array;
+    if (req.cookies.cos != null) {
+        cos_array = JSON.parse(req.cookies.cos)
+    } else {
+        cos_array = [];
+    }
     res.render("cos-cumparaturi", {
         nume: req.cookies["nume"],
-        cos: JSON.parse(req.cookies.cos)
+        cos: cos_array
     });
 });
 
