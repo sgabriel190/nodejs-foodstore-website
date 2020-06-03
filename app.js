@@ -207,8 +207,8 @@ app.post("/login-check", (req, res) => {
                 raspuns_json.parola_utilizator === result.password) {
                 res.cookie("utilizator", result.user);
                 res.cookie("nume", result.name);
-                res.cookie("lista", []);
-                res.cookie("cos", []);
+                res.cookie("lista", JSON.stringify([]));
+                res.cookie("cos", JSON.stringify([]));
                 res.clearCookie("mesajEroare");
 
                 // Logging message
@@ -298,7 +298,7 @@ app.get("/lista", (req, res) => {
 
     res.render("lista", {
         nume: req.cookies["nume"],
-        lista: req.cookies.lista
+        lista: JSON.parse(req.cookies.lista)
     });
 });
 
@@ -309,7 +309,7 @@ app.get("/cos-cumparaturi", (req, res) => {
     console.log(req.cookies.cos);
     res.render("cos-cumparaturi", {
         nume: req.cookies["nume"],
-        cos: req.cookies.cos
+        cos: JSON.parse(req.cookies.cos)
     });
 });
 
@@ -337,7 +337,9 @@ app.post("/add-to-list", (req, res) => {
         .then((result) => {
             // Logging message
             console.log("[Server-info]:Randarea paginii index.");
-            req.cookies.lista.push(result);
+            let json_cookie = JSON.parse(req.cookies.lista);
+            json_cookie.push(result);
+            res.cookie("lista", JSON.stringify(json_cookie));
             res.redirect("/");
         })
         .catch(err => console.log(err));
@@ -366,8 +368,9 @@ app.post("/add-to-basket", (req, res) => {
         .then((result) => {
             // Logging message
             console.log("[Server-info]:Randarea paginii index.");
-            req.cookies.cos.push(result);
-            res.cookie("cos", req.cookies.cos);
+            let json_cookie = JSON.parse(req.cookies.cos);
+            json_cookie.push(result);
+            res.cookie("cos", JSON.stringify(json_cookie));
             res.redirect("/");
         })
         .catch(err => console.log(err));
