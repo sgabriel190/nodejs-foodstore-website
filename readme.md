@@ -1,5 +1,2 @@
-# Tema de casa - Programare web
-### Student: Strilciuc Gabriel
-### Grupa: 1308B
+# Foodstore web application made with node js
 
-## Aplicatie web pentru marketplace.
